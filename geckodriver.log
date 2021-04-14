@@ -3,3 +3,7 @@
 console.warn: SearchSettings: "get: No settings file exists, new profile?" (new Error("", "(unknown module)"))
 1618427994376	Marionette	INFO	Listening on port 62552
 1618427994560	Marionette	WARN	TLS certificate errors will be ignored for this session
+1618428357762	Marionette	INFO	Stopped listening on port 62552
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+

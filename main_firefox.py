@@ -220,7 +220,7 @@ def chooseMissing():
 
 def writeInLanguage():
     #Grab hints to form a words
-    hints = driver.find_elements_by_xpath('//div[@data-test="hint-token"]')
+    hints = driver.find_elements_by_xpath('//*[@data-test="hint-token"]')
     words = []
 
     #Stor hints in word array
