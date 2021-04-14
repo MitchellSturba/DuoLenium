@@ -14,9 +14,6 @@ targetLang = ''
 lang = ''
 wrongAnswers = {}
 
-#Temporary for testing
-# email = 'zlmiwlh@biojuris.com'
-# password= 'awenADH123LA9'
 email = ''
 password = ''
 translator = Translator()
@@ -29,7 +26,12 @@ def welcome():
     global password
 
     email = input("Enter your email: ")
-    password = input("Enter your password: ")
+
+    if email == 'default':
+    	email = 'zlmiwlh@biojuris.com'
+    	password = 'awenADH123LA9'
+    else:
+    	password = input("Enter your password: ")
 
 
 def login():
