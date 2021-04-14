@@ -3,7 +3,7 @@ A tool that maintains your Duolingo streak by automatically completing exercises
 <br>
 
 # Demo
-<img src="img/demo.gif" width="50%" />
+<img src="img/demo.gif" width="55%" />
 
 # Usage
 Make sure you have a Duolingo account and python 3.6+ installed.
