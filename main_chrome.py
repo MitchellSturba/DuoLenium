@@ -139,6 +139,15 @@ def training():
             break
 
 def testEndConditions():
+    #Testing for Premium Prompt
+    try:    
+        questionType = driver.find_element_by_xpath('//*[@data-test="no-thanks-to-plus"]')
+        driver.find_element_by_xpath('//button[@data-test="no-thanks-to-plus"]').click()
+        skillOrPractise()
+    except:
+        print('Not subscribing to premium..')
+
+
     try:
         #Testing for end screen
         driver.find_element_by_xpath('//*[@data-test="player-end-carousel"]')
@@ -151,17 +160,17 @@ def testEndConditions():
         time.sleep(0.5)
         #Testing for streak wager screen
         try:    
-            questionType = driver.find_element_by_xpath('//*[@data-test="streak-wager-slid"]/span')
+            questionType = driver.find_element_by_xpath('//*[@data-test="streak-wager-slid"]')
             driver.find_element_by_xpath('//button[@data-test="player-next"]').click()
 
         except:
             print('Not wagering lingots..')
 
         time.sleep(0.5)
-        #Testing for Premium Prompt
+        #Testing for Premium Prompt again
         try:    
-            questionType = driver.find_element_by_xpath('//*[@data-test="plus-continue"]/span')
-            driver.find_element_by_xpath('//button[@data-test="player-next"]').click()
+            questionType = driver.find_element_by_xpath('//*[@data-test="no-thanks-to-plus"]')
+            driver.find_element_by_xpath('//button[@data-test="no-thanks-to-plus"]').click()
 
         except:
             print('Not subscribing to premium..')
