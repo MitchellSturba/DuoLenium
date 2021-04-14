@@ -15,16 +15,21 @@ lang = ''
 wrongAnswers = {}
 
 #Temporary for testing
-email = 'zlmiwlh@biojuris.com'
-password= 'awenADH123LA9'
+# email = 'zlmiwlh@biojuris.com'
+# password= 'awenADH123LA9'
+email = ''
+password = ''
 translator = Translator()
 
 def welcome():
     print('welcome to Duolenium...')
     driver.get("https://www.duolingo.com")
-    
-    #email = input("Enter your email: ")
-    #password = input("Enter your password: ")
+ 
+    global email
+    global password
+
+    email = input("Enter your email: ")
+    password = input("Enter your password: ")
 
 
 def login():
@@ -91,6 +96,8 @@ def training():
             time.sleep(1)
             questionType = ''
 
+            testEndConditions()
+
             try:
                 #Skip the encouraging messages
                 questionType = driver.find_element_by_xpath('//*[@data-test="challenge-header"]/span').text
@@ -129,6 +136,37 @@ def training():
             print(e)
             break
 
+def testEndConditions():
+    try:
+        #Testing for end screen
+        driver.find_element_by_xpath('//*[@data-test="player-end-carousel"]')
+
+        #Click continue button if at end screen
+        driver.find_element_by_xpath('//button[@data-test="player-next"]').click()
+
+        print('You have reached the end of training')
+
+        time.sleep(0.5)
+        #Testing for streak wager screen
+        try:    
+            questionType = driver.find_element_by_xpath('//*[@data-test="streak-wager-slid"]/span')
+            driver.find_element_by_xpath('//button[@data-test="player-next"]').click()
+
+        except:
+            print('Not wagering lingots..')
+
+        time.sleep(0.5)
+        #Testing for Premium Prompt
+        try:    
+            questionType = driver.find_element_by_xpath('//*[@data-test="plus-continue"]/span')
+            driver.find_element_by_xpath('//button[@data-test="player-next"]').click()
+
+        except:
+            print('Not subscribing to premium..')
+    except:
+        print('continuing training...')
+
+
 def writeBlankInLang(translateMe):
     #translate the sentence
     translated = translator.translate(translateMe, src='en', dest=targetLang).text
@@ -143,7 +181,7 @@ def writeBlankInLang(translateMe):
 
     driver.find_element_by_xpath('//button[@data-test="player-next"]').click()
 
-
+attempts = 0
 
 def chooseMissing():
     #Just guess this one lol
@@ -154,6 +192,12 @@ def chooseMissing():
     global wrongAnswers
 
     if inner in wrongAnswers:
+        time.sleep(0.5)
+
+        global attempts
+        attempts += 1
+        if attempts > len(options):
+            wrongAnswers.clear()
         chooseMissing()
     else:
         options[r - 1].click()
@@ -200,7 +244,7 @@ def writeInLanguage():
 
 def writeInEnglish():
     #Seperate words by hints since that's how the html is on Duolingos
-    hints = driver.find_elements_by_xpath('//div[@data-test="hint-token"]')
+    hints = driver.find_elements_by_xpath('//*[@data-test="hint-token"]')
     words = []
     
     #Append each hint to a list of words
